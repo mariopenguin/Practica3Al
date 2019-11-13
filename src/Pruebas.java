@@ -37,8 +37,12 @@ public class Pruebas {
 	
 	public static void mostrarSolucion(ArrayList<Objeto> solucion, Inventario inventario) {
 		System.out.println("Objetos en orden de entrada:");
-		for (int i = 0; i < solucion.size(); i++)
+		for (int i = 0; i < solucion.size(); i++){
 			System.out.print(solucion.get(i).getId() + " ");
+
+			//System.out.print(solucion.get(i).getId() + "{v:="+solucion.get(i).getValor()+",alto:=" + solucion.get(i).getAlto() + ",ancho:=" +solucion.get(i).getAncho() + "}  ");
+		}
+
 		System.out.println("\n\nInventario:");
 		inventario.mostrar();
 		int vTotal = 0;

@@ -30,7 +30,7 @@ public class Principal {
 			if (mejor==null){
 				mejor = objeto;
 			}
-			else if((mejor.getValor()/(mejor.getAlto()*mejor.getAncho()))<=objeto.getValor()/(objeto.getAncho()*objeto.getAncho())){
+			else if(((calcularValorMedio(calcularArea(mejor.getAlto(),mejor.getAncho()),mejor.getValor()))<= calcularValorMedio(calcularArea(objeto.getAlto(),objeto.getAncho()),objeto.getValor()))){
 				mejor = objeto;
 			}
 		}
@@ -39,13 +39,13 @@ public class Principal {
 	}
 	
 	private static boolean esCandidatoFactible(Objeto candidato, Inventario inventario) {
-		int posXlibre=0;
-		int posYlibre=0;
-		boolean encontrado = false;
-		for (int i = 0; i <inventario.getN() &&!encontrado; i++) {
-			for (int j = 0; j < inventario.getN() &&!encontrado ; j++) {
+		int posXlibre=0;int posXfinal =0;
+		int posYlibre=0;int posYfinal =0;
+		boolean encontrado = false;boolean ocupado=false;
+		for (int j = 0; j <inventario.getN() &&!encontrado; j++) {
+			for (int i = 0; i < inventario.getN() &&!encontrado ; i++) {
 			if (inventario.getCelda(i,j)==-1 && (i+candidato.getAncho())<=inventario.getN() &&j+candidato.getAlto()<=inventario.getN()){
-				inventario.setCelda(i,j,candidato.getValor());
+				//inventario.setCelda(i,j,candidato.getValor());
 				encontrado=true;
 				posXlibre=i;
 				posYlibre=j;
@@ -53,15 +53,19 @@ public class Principal {
 			}
 		}
 		if (encontrado){
-			for (int i = posXlibre; i <posXlibre+candidato.getAncho() ; i++) {
+			for (int i = posXlibre; i<posXlibre+candidato.getAncho() ; i++) {
 				for (int j = posYlibre; j < posYlibre+candidato.getAlto(); j++) {
 					inventario.setCelda(i,j,candidato.getId());
 				}
 			}
 		}
-
 		//Rellenamos la array
 		return encontrado;
 	}
-
+	private static int calcularArea(int alto,int ancho){
+		return alto*ancho;
+	}
+	private static int calcularValorMedio(int area,int valor){
+		return valor/area;
+	}
 }

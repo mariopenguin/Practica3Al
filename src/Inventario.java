@@ -29,7 +29,7 @@ public class Inventario {
 		// Inicializa el array con valor -1 en todas sus celdas
 		for (int f = 0; f < this.N; f++)
 			for (int c = 0; c < this.N; c++)
-				this.celda[c][f] = -1;		
+				this.celda[c][f] = -1;
 	}
 	
 	public void mostrar() {
