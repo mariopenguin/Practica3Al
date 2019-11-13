@@ -39,16 +39,20 @@ public class Principal {
 	}
 	
 	private static boolean esCandidatoFactible(Objeto candidato, Inventario inventario) {
-		int posXlibre=0;int posXfinal =0;
-		int posYlibre=0;int posYfinal =0;
+		int posXlibre=0;
+		int posYlibre=0;
 		boolean encontrado = false;boolean ocupado=false;
 		for (int j = 0; j <inventario.getN() &&!encontrado; j++) {
 			for (int i = 0; i < inventario.getN() &&!encontrado ; i++) {
-			if (inventario.getCelda(i,j)==-1 && (i+candidato.getAncho())<=inventario.getN() &&j+candidato.getAlto()<=inventario.getN()){
+			if (!encontrado &&inventario.getCelda(i,j)==-1 && (i+candidato.getAncho())<=inventario.getN() &&j+candidato.getAlto()<=inventario.getN()){
 				//inventario.setCelda(i,j,candidato.getValor());
-				encontrado=true;
 				posXlibre=i;
 				posYlibre=j;
+				if(subMatrizLibre(posXlibre,posYlibre,posXlibre+candidato.getAncho(),posYlibre+candidato.getAlto(),inventario)){
+					encontrado=true;
+				}else{
+					encontrado=false;
+				}
 			}
 			}
 		}
@@ -67,5 +71,16 @@ public class Principal {
 	}
 	private static int calcularValorMedio(int area,int valor){
 		return valor/area;
+	}
+	private static boolean subMatrizLibre(int iInicio,int jInicio, int iFinal,int jFinal,Inventario inventario){
+		boolean libre = true;
+		for (int i = iInicio; i < iFinal; i++) {
+			for (int j = jInicio; j < jFinal; j++) {
+				if (inventario.getCelda(i,j)!=-1){
+					libre=false;
+				}
+			}
+		}
+		return libre;
 	}
 }
